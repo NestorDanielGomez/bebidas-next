@@ -5,7 +5,7 @@ function Nosotros() {
   return (
     <Layout title="Acerca de nosotros" description="descripcion de nosotros">
       <main className="contenedor">
-        <h2 className="heading">Nosotros</h2>
+        <h1 className="heading">Nosotros</h1>
         <div className={styles.contenido}>
           <Image
             alt="img nosotros"

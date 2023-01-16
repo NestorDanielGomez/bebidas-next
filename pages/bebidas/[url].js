@@ -1,9 +1,28 @@
+import { useState } from "react";
 import Image from "next/image";
 import Layout from "../../components/layout";
 import styles from "../../styles/bebidas.module.css";
 
-export default function Producto({ producto }) {
+export default function Producto({ producto, agregarAlCarrito }) {
+  const [cantidad, setCantidad] = useState(0);
   const { nombre, descripcion, imagen, precio } = producto[0].attributes;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (cantidad < 1) {
+      alert("cantidad no valida");
+      return;
+    }
+    const productoSeleccionado = {
+      id: producto[0].id,
+      imagen: imagen.data.attributes.url,
+      nombre,
+      precio,
+      cantidad,
+    };
+    agregarAlCarrito(productoSeleccionado);
+  };
+
   return (
     <Layout title={`Producto ${nombre}`}>
       <div className={styles.bebida}>
@@ -17,6 +36,23 @@ export default function Producto({ producto }) {
           <h3>{nombre}</h3>
           <p className={styles.descripcion}>{descripcion}</p>
           <p className={styles.precio}>${precio}</p>
+          <form action="" className={styles.formulario} onSubmit={handleSubmit}>
+            <label htmlFor="cantidad">Cantidad:</label>
+            <select
+              name="cantidad"
+              id=""
+              onChange={(e) => {
+                setCantidad(Number(e.target.value));
+              }}>
+              <option value="0">--Seleccione--</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <input type="submit" name="Agregar al carrito" id="" />
+          </form>
         </div>
       </div>
     </Layout>
